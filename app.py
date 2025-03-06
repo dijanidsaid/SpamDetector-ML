@@ -47,6 +47,8 @@ def predict_api():
         return jsonify({'error': str(e)}), 400  # Return error response
 
 # Run the Flask app
+import os
 if __name__ == "__main__":
     #app.run(host="0.0.0.0", port=5000, debug=True)  # Run on all available IPs, port 5000
-    app.run()
+    port = int(os.environ.get("PORT", 5000))  # Get PORT from environment
+    app.run(host="0.0.0.0", port=port, debug=True)
