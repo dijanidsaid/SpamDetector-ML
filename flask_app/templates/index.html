@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Spam Classifier</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        button {
+            color: aliceblue;
+            background-color: blue;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+
+        textarea {
+            width: 80%;
+            height: 150px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        a {
+            margin-left: 10px;
+            color: blue;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Spam Email Classifier</h1>
+
+    <div>
+        <form method="POST" action="/predict">
+            <textarea rows="10" cols="50" name="email" placeholder="Enter your email here..." autocomplete="off">{{ email }}</textarea> 
+            <div>
+                <button type="submit">Check for Spam</button>
+                <a href="/">Reset</a>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        {% if result %}
+            {% if result == "Spam" %}
+                <h2 style="color: red">This email is SPAM!</h2>
+            {% else %}
+                <h2 style="color: green">This email is NOT SPAM.</h2>
+            {% endif %}
+        {% endif %}
+    </div>
+
+</body>
+</html>
