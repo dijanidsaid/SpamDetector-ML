@@ -6,8 +6,9 @@
         "use": "@vercel/python"
       }
     ],
-    "routes": [
-      { "src": "/(.*)", "dest": "app.py" }
-    ]
+    "env": {
+      "FLASK_ENV": "production",
+      "PYTHON_VERSION": "3.12"
+    }
   }
   
