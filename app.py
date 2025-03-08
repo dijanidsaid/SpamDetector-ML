@@ -3,7 +3,7 @@ from flask import Flask, request, render_template, jsonify
 from utils import model_predict  # Import the predict function from utils.py
 
 # Initialize Flask app
-app = Flask(__name__)
+app = Flask(__name__, template_folder='.')
 
 @app.route("/")
 def home():
