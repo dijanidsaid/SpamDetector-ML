@@ -8,7 +8,7 @@ def load_model():
     """
     Loads the trained model from file.
     """
-    with open("models/model.pkl", "rb") as file:  
+    with open("/model.pkl", "rb") as file:  
         model = pickle.load(file)  # Load the model using pickle
     return model
 
@@ -35,7 +35,7 @@ def home():
     return render_template("index.html")  # Load the index.html template
 
 @app.route('/predict', methods=['POST'])  # Handle POST requests
-#@app.route('/model_predict', methods=['POST'])
+
 def predict_route():
     """
     Handles form submission and returns prediction.
@@ -48,22 +48,10 @@ def predict_route():
     prediction = model_predict(email)  # Make a prediction
     result = "Spam" if prediction == 1 else "Not Spam"  # Convert prediction to text
     return render_template("index.html", email=email, result=result)  # Return result to template
-    try:
-        data = request.get_json()  # Extract JSON data
-        email = data.get('email')  # Get email from JSON
-        
-        if not email:  # If email is empty
-            return jsonify({'error': 'Email is required.'}), 400  # Return error response
-
-        prediction = model_predict(email)  # Make a prediction
-        result = "Spam" if prediction == 1 else "Not Spam"  # Convert prediction to text
-        return jsonify({'email': email, 'result': result})  # Return JSON response
-
-    except Exception as e:  # Catch any exceptions
-        return jsonify({'error': str(e)}), 400  # Return error response
+   
 
 # Create an API endpoint
-'''@app.route('/api/predict', methods=['POST'])  # Handle POST requests
+@app.route('/api/predict', methods=['POST'])  # Handle POST requests
 
 def predict_api():
     """
@@ -81,7 +69,7 @@ def predict_api():
         return jsonify({'email': email, 'result': result})  # Return JSON response
 
     except Exception as e:  # Catch any exceptions
-        return jsonify({'error': str(e)}), 400  # Return error response '''
+        return jsonify({'error': str(e)}), 400  # Return error response 
 
 # Run the Flask app
 import os
