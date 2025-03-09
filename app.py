@@ -1,6 +1,28 @@
 # app.py
 from flask import Flask, request, render_template, jsonify
-from utils import model_predict  # Import the predict function from utils.py
+#from utils import model_predict  # Import the predict function from utils.py
+# utils.py (Helper Functions)
+import pickle
+
+def load_model():
+    """
+    Loads the trained model from file.
+    """
+    with open("models/model.pkl", "rb") as file:  
+        model = pickle.load(file)  # Load the model using pickle
+    return model
+
+def model_predict(features):
+    """
+    Predicts using the loaded model.
+    Args:
+        features (str): The email text to classify.
+    Returns:
+        int: 1 if the email is spam, -1 if it is not spam.
+    """
+    model = load_model()  # Load the model
+    prediction = model.predict([features])  # Make a prediction
+    return 1 if prediction[0] == 1 else -1  # Return 1 (spam) or -1 (not spam)
 
 # Initialize Flask app
 app = Flask(__name__, template_folder='.')
@@ -13,6 +35,7 @@ def home():
     return render_template("index.html")  # Load the index.html template
 
 @app.route('/predict', methods=['POST'])  # Handle POST requests
+#@app.route('/model_predict', methods=['POST'])
 def predict_route():
     """
     Handles form submission and returns prediction.
@@ -28,6 +51,7 @@ def predict_route():
 
 # Create an API endpoint
 @app.route('/api/predict', methods=['POST'])  # Handle POST requests
+
 def predict_api():
     """
     API endpoint that accepts a JSON payload and returns a prediction.
