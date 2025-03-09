@@ -8,7 +8,7 @@ def load_model():
     """
     Loads the trained model from file.
     """
-    with open("/model.pkl", "rb") as file:  
+    with open("model.pkl", "rb") as file:  
         model = pickle.load(file)  # Load the model using pickle
     return model
 
